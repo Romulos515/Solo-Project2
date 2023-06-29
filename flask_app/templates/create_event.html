@@ -1,0 +1,49 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+    <div class="mb-3 d-flex justify-content-end">
+        <div class="col-md-3 text-end">
+            <a href="/logout" class="btn btn-primary">
+                Logout
+            </a>
+        </div>
+    </div>
+{% with errors = get_flashed_messages(category_filter=["validate_error"]) %} 
+    {% if errors %}
+    <div class="alert alert-danger">
+        <h5>Woops! You've some errors that you need to fix:</h5>
+        <ul>
+            {% for error_message in errors %}
+            <li>{{ error_message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %} 
+{% endwith %}
+    <h1>Create Serving Opportunity</h1>
+    <form action="/event/create" method="POST">
+        <div class="mb-4">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" id="name"></input>
+        </div>
+        <div class="mb-4">
+            <label for="date">Date</label>
+            <input type="datetime-local" class="form-control" name="date" id="date"></input>
+        </div>
+        <div class="mb-4">
+            <label for="address">Address</label>
+            <input type="address" name="address" id="address" class="form-control">
+        </div>
+        <label for="description">Event Description</label>
+        <div class="mb-4">
+            <textarea name="description" id="" cols="40" rows="10" id="description"></textarea>
+        </div>
+        <div class="mb-4">
+            <label for="event_duration">Event Duration (in hours)</label>
+            <input type="number" name="event_duration" id="event_duration" min="0">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+            Submit Event
+        </button>
+    </form>
+</div>
+{% endblock %}

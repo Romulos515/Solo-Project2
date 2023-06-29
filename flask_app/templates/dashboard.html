@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    
+    <div class="mb-3 d-flex justify-content-end">
+        
+        <h1>Welcome {{ user.first_name  }}!</h1>
+
+        <div class="col-md-3 text-end">
+            <a href="/event/create" class="btn btn-primary">Create an Event Here!</a>
+            <a href="/logout" class="btn btn-primary">
+                Logout
+            </a>
+        </div>
+    </div>
+    <h3>All Serving Events:</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Serving Event Name</th>
+                <th>Day and Time of Event</th>
+                <th>Address</th>
+                <th>Event Coordinator</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in all_events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.date.strftime('%m-%d-%Y %H:%M %p') }}</td>
+                    <td>{{ event.address }}</td>
+                    <td>{{ event.user.first_name }} {{ event.user.last_name }} </td>
+                    <td>
+                        <a href="/event/{{event.id}}">View Event</a>
+                        {% if event.User_id == session.user_id %}
+                        <a href="/edit/event/{{event.id}}">Edit</a>
+                        <a href="/delete/event/{{event.id}}">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

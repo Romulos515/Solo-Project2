@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-4">
+    <div class="mb-3 d-flex justify-content-end">
+        <div class="col-md-3 text-end">
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-primary">
+                Logout
+            </a>
+        </div>
+    </div>
+    {% with errors = get_flashed_messages(category_filter=["validate_error"]) %} 
+        {% if errors %}
+            <div class="alert alert-danger">
+                <h5>Woops! You've some errors that you need to fix:</h5>
+                <ul>
+                {% for error_message in errors %}
+                <li>{{ error_message }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %} 
+    {% endwith %}
+    <h1>Edit Event</h1>
+    <form action="/edit/event/{{event_return.id}}" method="POST">
+        
+        <div class="mb-4">
+            <label for="name">Event Name</label>
+            <input class="form-control" name="name" value="{{event_return.name}}"></input>
+        </div>
+        <div class="mb-4">
+            <label for="date">Date</label>
+            <input type="datetime-local" class="form-control" name="date" id="date" value="{{event_return.date}}"></input>
+        </div>
+        <div class="mb-4">
+            <label for="address">Address</label>
+            <input type="address" name="address" id="address" class="form-control" value="{{event_return.address}}">
+        </div>
+        <label for="description">Event Description</label>
+        <div class="mb-4">
+            <textarea name="description" id="" cols="40" rows="10" id="description" >{{event_return.description}}</textarea>
+        </div>
+        <div class="mb-4">
+            <label for="event_duration">Event Duration (in hours)</label>
+            <input type="number" name="event_duration" id="event_duration" value="{{event_return.event_duration}}" min="0">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">
+            Submit Editing
+        </button>
+    </form>
+</div>
+{% endblock %}

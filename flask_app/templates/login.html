@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            {% with errors = get_flashed_messages(category_filter=["error"]) %} 
+                {% if errors %}
+                    <div class="alert alert-danger">
+                        <h5>Woops! You've some errors that you need to fix:</h5>
+                        <ul>
+                            {% for error_message in errors %}
+                            <li>{{ error_message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %} 
+            {% endwith %}
+            
+            {% with success_messages = get_flashed_messages(category_filter=["success"]) %} 
+                {% for success_msg in success_messages %}
+                        <div class="alert alert-success">{{ success_msg }}</div>
+                {% endfor %}
+            {% endwith %}
+            <h1>Login</h1>
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label>Email:</label>
+                    <input type="text" name="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>Password:</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            {% with errors = get_flashed_messages(category_filter=["reg_error"]) %} 
+                {% if errors %}
+            <div class="alert alert-danger">
+                <h5>Woops! You've some registration errors that you need to fix:</h5>
+                <ul>
+                    {% for error_message in errors %}
+                    <li>{{ error_message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+                {% endif %} 
+            {% endwith %}
+            {% with success_messages = get_flashed_messages(category_filter=["success"]) %} 
+                {% for success_msg in success_messages %}
+                    <div class="alert alert-success">{{ success_msg }}</div>
+                {% endfor %}
+            {% endwith %}
+            <h1>Create User</h1>
+                <form action="/register" method="POST">
+                <div class="mb-4">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" class="form-control" />
+                </div>
+                <div class="mb-4">
+                    <label for="first_name">First name</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control"/>
+                </div>
+                <div class="mb-4">
+                    <label for="last_name">Last name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control"/>
+                </div>
+                <div class="mb-4">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="tel" name="phone_number" id="phone_number" class="form-control">
+                </div>
+                <div class="mb-4">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control" />
+                </div>
+                <div class="mb-4">
+                    <label for="password">Confirm Password</label>
+                    <input type="password" name="password" id="password" class="form-control" />
+                </div>
+                    <button type="submit" class="btn btn-primary mt-3">Create User</button>
+                </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
